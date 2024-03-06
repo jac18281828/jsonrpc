@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cmake makefiles",
+            "type": "shell",
+            "command": "cmake -H. -Bbuild -DPROJECT_NAME=crucible -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_VERBOSE_MAKEFILE=on -Wno-dev '-GUnix Makefiles'",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "cmake",
+            "type": "shell",
+            "command": "cmake --build build --verbose --config DEBUG",
+            "dependsOn": "cmake makefiles",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "ctest",
+            "type": "shell",
+            "dependsOn": "cmake",
+            "command": "cd build && ctest --verbose",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ]
+}
